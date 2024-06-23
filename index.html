@@ -4,14 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
-    <script src="script.js"></script>
-    <title>Document</title>
+    <title></title>
   </head>
   <body>
+    <div class="header">
+      <h1 class="main-text"></h1>
+    </div>
     <div class="container">
-      <div class="header">
-        <h4 class="main-text">Guess The Word</h4>
-      </div>
       <!-- <div class="main"> -->
       <div class="game-area">
         <div class="inputs-section"></div>
@@ -22,16 +21,28 @@
         <div class="message"></div>
       </div>
       <section class="key-colors">
-        <h4 class="key-text">Key Colors</h4>
+        <h2 class="key-text">Key Colors</h2>
         <div class="colors-container">
-          <p class="color-text" id="first">Letter is Right And in Place</p>
-          <p class="color-text" id="second">Letter is Right But Not in Place</p>
-          <p class="color-text" id="third">
-            Letter is Wrong And Not Exist In Word
-          </p>
+          <div class="color-box">
+            <div class="key in-place"></div>
+            <p class="color-text" id="first">Letter is Right And in Place</p>
+          </div>
+          <div class="color-box">
+            <div class="key not-in-place"></div>
+            <p class="color-text" id="second">
+              Letter is Right But Not in Place
+            </p>
+          </div>
+
+          <div class="color-box">
+            <div class="key no"></div>
+            <p class="color-text" id="third">Letter is Wrong</p>
+          </div>
         </div>
       </section>
       <!-- </div> -->
     </div>
+    <footer></footer>
+    <script src="script.js"></script>
   </body>
 </html>
