@@ -13,6 +13,22 @@ let numberOfTries = 6;
 let numberofLetters = 6;
 let activeTry = 1;
 
+// manage the words
+let wordToGuess = "";
+let words = [
+  "Create",
+  "update",
+  "delete",
+  "master",
+  "branch",
+  "Mainly",
+  "school",
+];
+wordToGuess = words[Math.floor(Math.random() * words.length)].toLowerCase();
+console.log(wordToGuess);
+
+let messageArea = document.querySelector(".message");
+
 function generateInput() {
   const inputsContainer = document.querySelector(".inputs-section");
 
@@ -27,7 +43,7 @@ function generateInput() {
     }
 
     // to create try inputs
-    for (let j = 1; j < numberofLetters; j++) {
+    for (let j = 1; j <= numberofLetters; j++) {
       const input = document.createElement("input");
       input.type = "text";
       input.id = `guess-${i}-letter-${j}`;
@@ -72,6 +88,99 @@ function generateInput() {
       }
     });
   });
+}
+
+const guessButton = document.querySelector(".check");
+guessButton.addEventListener("click", handelGuesses);
+
+function handelGuesses() {
+  let successGuess = true;
+  for (let i = 1; i <= numberofLetters; i++) {
+    const inputField = document.querySelector(
+      `#guess-${activeTry}-letter-${i}`
+    );
+    const letter = inputField.value.toLowerCase();
+    const actualLetter = wordToGuess[i - 1];
+
+    // game logic
+    // successGuess = letter === actualLetter ? true : false;
+    if (letter === actualLetter) {
+      inputField.classList.add("yes-in-place");
+    } else if (wordToGuess.includes(letter) && letter !== "") {
+      inputField.classList.add("not-in-place");
+      successGuess = false;
+    } else {
+      inputField.classList.add("no");
+      successGuess = false;
+    }
+  }
+
+  //Check if user win or lose
+  if (successGuess) {
+    messageArea.innerHTML = `You Win the Word is <span>${wordToGuess.toUpperCase}</span>`;
+
+    //Disable all try by adding disable class to all input divs
+    let allTries = document.querySelectorAll(".inputs-section >div");
+    allTries.forEach((i) => {
+      i.classList.add("disabled-inputs");
+
+      //disable guess button
+      guessButton.disabled = true;
+    });
+  } else {
+    // const inputsContainer = document.querySelector(".inputs-section");
+    // activeTry += 1;
+    // const prevDiv = document.querySelector(`.try-${activeTry - 1}`);
+    // prevDiv.classList.add("disabled-inputs");
+    // const activeDiv = document.querySelector(`.try-${activeTry}`);
+    // activeDiv.classList.remove("disabled-inputs");
+    // console.log(activeDiv.children[1]);
+    // activeDiv.children[1].focus();
+
+    // // Disable all inputs except first one
+    // const inputsInDisabledDiv = document.querySelectorAll(
+    //   `.try-${activeTry} input`
+    // );
+
+    // inputsInDisabledDiv.forEach((input) => {
+    //   input.disabled = true;
+    // });
+
+    // add the disable class to faild try
+
+    if (activeTry === numberOfTries) {
+      messageArea.innerHTML = `YOU LOSE THE WORD IS <span>${wordToGuess.toUpperCase()}</span>`;
+      guessButton.disabled = true;
+      return;
+    }
+
+    document
+      .querySelector(`.try-${activeTry}`)
+      .classList.add("disabled-inputs");
+
+    const currentTryInputs = document.querySelectorAll(
+      `.try-${activeTry} input`
+    );
+
+    currentTryInputs.forEach((input) => {
+      input.disabled = true;
+    });
+
+    activeTry++;
+
+    // delete the disable class from newTry and add focus to it
+    document
+      .querySelector(`.try-${activeTry}`)
+      .classList.remove("disabled-inputs");
+
+    const nextTryInput = document.querySelectorAll(`.try-${activeTry} input`);
+
+    nextTryInput.forEach((input) => {
+      input.disabled = false;
+    });
+
+    nextTryInput[0].focus();
+  }
 }
 
 window.onload = function () {

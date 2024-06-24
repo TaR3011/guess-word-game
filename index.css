@@ -274,10 +274,27 @@ h1 {
   }
 }
 
+.message {
+  text-align: center;
+  font-weight: bold;
+  font-size: 32px;
+  span {
+    font-weight: bold;
+    display: block;
+    font-size: 50px;
+    color: var(--primary-color);
+    text-transform: capitalize;
+    margin-top: 8px;
+  }
+  p {
+    margin-top: 16px;
+  }
+}
+
 footer {
   text-align: center;
   padding: 20px;
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   bottom: 0;
   left: 0;
