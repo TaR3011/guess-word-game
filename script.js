@@ -39,6 +39,39 @@ function generateInput() {
   } // end nested loop
 
   inputsContainer.children[activeTry - 1].children[1].focus();
+
+  //Disable all inputs except first one
+  const inputsInDisabledDiv = document.querySelectorAll(
+    ".disabled-inputs input"
+  );
+
+  inputsInDisabledDiv.forEach((input) => {
+    input.disabled = true;
+  });
+
+  // Add event listner
+  const inputs = document.querySelectorAll("input");
+  inputs.forEach((input, index) => {
+    input.addEventListener("input", function () {
+      // To convert the input to Uppercase
+      this.value = this.value.toUpperCase();
+      // to set fouce to next input field
+      const nextInput = inputs[index + 1];
+      if (nextInput) nextInput.focus();
+    });
+
+    input.addEventListener("keydown", function (event) {
+      const currentIndex = Array.from(inputs).indexOf(event.target);
+
+      if (event.key === "ArrowRight") {
+        const nextInput = currentIndex + 1;
+        if (nextInput < inputs.length) inputs[nextInput].focus();
+      } else if (event.key === "ArrowLeft") {
+        const prevInput = currentIndex - 1;
+        if (prevInput >= 0) inputs[prevInput].focus();
+      }
+    });
+  });
 }
 
 window.onload = function () {
