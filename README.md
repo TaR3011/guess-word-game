@@ -22,6 +22,6 @@ The Guess Word Game is a fun, engaging way to test your word-guessing abilities.
 ## 🚀 Try It Out
 
 You can try out the game directly from the hosted version:
-- [Play Guess Word Game](https://guesswordgame1.netlify.app/) (Replace with your actual live demo link)
+- [Play Guess Word Game](https://guesswordgame1.netlify.app/)
 
 
